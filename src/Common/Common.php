@@ -129,9 +129,9 @@ class Common
 
             $textLen = count($textArr);
 
-            $footerLen = 0;
+//            $footerLen = 0;
             if ($footer != "") {
-                $footerArr = array();
+//                $footerArr = array();
                 $footerTempArr = explode("\n", trim($footer));
                 $jj = 0;
                 foreach ($footerTempArr as $v) {
@@ -150,31 +150,16 @@ class Common
                     }
                 }
 
-                $footerLen = count($textArrFooter);
+//                $footerLen = count($textArrFooter);
             }
 
-            $canvasHeight = $canvasHeight + $lineHeight * $textLen + $footerLen * (14 * 2);
+            $canvasHeight = $canvasHeight + $lineHeight * $textLen;
+            if ($canvasHeight < 250) {
+                $canvasHeight += 50;
+            }
             $im = imagecreatetruecolor($canvasWidth, $canvasHeight); #定义画布
             $colorArray = Common::str2rgb($userStyle[1]);
             imagefill($im, 0, 0, imagecolorallocate($im, $colorArray['red'], $colorArray['green'], $colorArray['blue']));
-
-//            $colorArray = Common::str2rgb('#e8e6da');
-//            $colorLine = imagecolorallocate($im, $colorArray['red'], $colorArray['green'], $colorArray['blue']);
-//            $padding = 50;
-
-//            $paddingBottom = 130;
-//            $y1 = $y2 = $padding;
-//
-//            $x1 = $x4 = $padding - 32;
-//            $x2 = $x3 = $canvasWidth - $padding + 32 - 1;
-//
-//
-//            $y3 = $y4 = $canvasHeight - $paddingBottom - 32;
-//            //可以开发为页面可选择并传递这个参数,选择是否显示边框以及颜色
-////            Common::imagelinethick($im, $x1, $y1, $x2, $y2, $colorLine, 2);
-////            Common::imagelinethick($im, $x2, $y2, $x3, $y3, $colorLine, 2);
-////            Common::imagelinethick($im, $x3, $y3, $x4, $y4, $colorLine, 2);
-////            Common::imagelinethick($im, $x4, $y4, $x1, $y1, $colorLine, 2);
 
             //字体路径，,也可以开发为页面可选择并传递这个参数
             $fontStyle = $fontPath;
@@ -183,15 +168,9 @@ class Common
 
             }
 
-            //写入四个随机数
-//            $colorArray = Common::str2rgb($userStyle[0]);
-//            $fontColor = imagecolorallocate($im, $colorArray['red'], $colorArray['green'], $colorArray['blue']);
-
             $offset = 80;
 
             if ($footer != "") {
-                // rgb(149, 165, 166)rgb(236, 240, 241)rgb(127, 140, 141)
-//                $colorArray = Common::str2rgb("424c50");
                 $fontColor = imagecolorallocate($im, 200, 198, 190);
                 imagettftext($im, 16, 0, $paddingLeft - 25, $offset, $fontColor, $fontStyle, $footer);
             }
@@ -199,10 +178,9 @@ class Common
             $colorArray = Common::str2rgb("5f574c");
             $fontColor = imagecolorallocate($im, $colorArray['red'], $colorArray['green'], $colorArray['blue']);
             foreach ($textArr as $k => $text) {
-                $offset +=  $lineHeight - intval(($lineHeight - $fontSize) / 2);
+                $offset +=  $lineHeight - intval(($lineHeight - $fontSize) / 2) + 20;
                 imagettftext($im, $fontSize, 0, $paddingLeft, $offset, $fontColor, $fontStyle, $text);
             }
-
 
             $offset = $canvasHeight - 50;
             $fontColor = imagecolorallocate($im, 200, 198, 190);
