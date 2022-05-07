@@ -12,7 +12,7 @@ class Common
     public static function strDiv($str, $width = 10)
     {
         $strArr = array();
-        $len = strlen($str);
+        $len = mb_strlen($str);
         $count = 0;
         $flag = 0;
         while ($flag < $len) {
@@ -24,8 +24,8 @@ class Common
                 $flag += 1;
             }
             if ($count >= $width) {
-                $strArr[] = substr($str, 0, $flag);
-                $str = substr($str, $flag);
+                $strArr[] = mb_substr($str, 0, $flag);
+                $str = mb_substr($str, $flag);
                 $len -= $flag;
                 $count = 0;
                 $flag = 0;
