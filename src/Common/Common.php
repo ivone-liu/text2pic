@@ -196,7 +196,6 @@ $footerLen = 0;
     $fontColor = imagecolorallocate($im, 200, 198, 190);
     imagettftext($im, 16, 0, $paddingLeft -25, $offset,$fontColor, $fontStyle, $by);
     imagejpeg($im, $imgfile,100);
-    imagedestroy($im);
 
 	foreach($textArr as $k=>$text){
 		$offset += $paddingTop + $lineHeight * ($k + 1) - intval(($lineHeight-$fontSize) / 2);
@@ -210,7 +209,8 @@ $footerLen = 0;
 	$fontColor = imagecolorallocate($im, 200, 198, 190);
 	imagettftext($im, 16, 0, $paddingLeft, $offset,$fontColor, $fontStyle, $footer);
 	}
-    
+
+    imagedestroy($im);
 	}
 	return $ids.'.jpg';
 }
