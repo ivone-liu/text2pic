@@ -61,7 +61,7 @@ public static function imagelinethick($image, $x1, $y1, $x2, $y2, $color, $thick
     return imageline($image, $x1, $y1, $x2, $y2, $color);
     */
     if ($thick == 1) {
-        return imageline($image, $x1, $y1, $x2, $y2, $color);
+        return imageline($image, $x1, $y1, 0, 0, $color);
     }
     $t = $thick / 2 - 0.5;
     if ($x1 == $x2 || $y1 == $y2) {
@@ -80,7 +80,7 @@ public static function imagelinethick($image, $x1, $y1, $x2, $y2, $color, $thick
 }
 
 public static function makeimger($text = "内容获取失败...",$types,$ids,$fontPath,$by="",$footer=""){
-	$setStyle = '5f574c|FDFCF5'; #设置颜色,也可以开发为页面可选择并传递这个参数
+	$setStyle = '5f574c|fafafc'; #设置颜色,也可以开发为页面可选择并传递这个参数
 	$haveBrLinker = ""; #超长使用分隔符
 	$userStyle = explode('|', $setStyle); #分开颜色
 	$text = substr($text, 0, 10000); #截取前1024个字符
@@ -190,9 +190,16 @@ $footerLen = 0;
 	//写入四个随机数
 	$colorArray = Common::str2rgb($userStyle[0]);
 	$fontColor = imagecolorallocate($im, $colorArray['red'], $colorArray['green'], $colorArray['blue']);
-	
+
+
+    $offset = 40;
+    $fontColor = imagecolorallocate($im, 200, 198, 190);
+    imagettftext($im, 16, 0, $paddingLeft -25, $offset,$fontColor, $fontStyle, $by);
+    imagejpeg($im, $imgfile,100);
+    imagedestroy($im);
+
 	foreach($textArr as $k=>$text){
-		$offset = $paddingTop + $lineHeight * ($k + 1) - intval(($lineHeight-$fontSize) / 2);
+		$offset += $paddingTop + $lineHeight * ($k + 1) - intval(($lineHeight-$fontSize) / 2);
 		imagettftext($im, $fontSize, 0, $paddingLeft, $offset, $fontColor, $fontStyle, $text);
 	}
 
@@ -203,16 +210,7 @@ $footerLen = 0;
 	$fontColor = imagecolorallocate($im, 200, 198, 190);
 	imagettftext($im, 16, 0, $paddingLeft, $offset,$fontColor, $fontStyle, $footer);
 	}
-	
-
-	
-	$offset += 110;
-	$fontColor = imagecolorallocate($im, 200, 198, 190);
-	imagettftext($im, 16, 0, $paddingLeft -25, $offset,$fontColor, $fontStyle, $by);
-	imagejpeg($im, $imgfile,100);
-	imagedestroy($im);
-	//echo $imgfile;
-    	//exit($imgfile);
+    
 	}
 	return $ids.'.jpg';
 }
