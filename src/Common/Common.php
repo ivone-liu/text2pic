@@ -102,7 +102,7 @@ class Common
             $paddingLeft = 64;
             $paddingBottom = 57;
 
-            $canvasWidth = 659;
+            $canvasWidth = 700;
             $canvasHeight = $paddingTop + $paddingBottom;
 
             $fontSize = 24;
@@ -112,7 +112,7 @@ class Common
             $tempArr = explode("\n", trim($text));
             $j = 0;
             foreach ($tempArr as $v) {
-                $arr = Common::strDiv($v, 16);
+                $arr = Common::strDiv($v, 6);
                 $textArr[] = array_shift($arr);
                 foreach ($arr as $v) {
                     $textArr[] = $haveBrLinker . $v;
@@ -134,7 +134,7 @@ class Common
                 $footerTempArr = explode("\n", trim($footer));
                 $jj = 0;
                 foreach ($footerTempArr as $v) {
-                    $arrFooter = Common::strDiv($v, 16);
+                    $arrFooter = Common::strDiv($v, 12);
                     $textArrFooter[] = array_shift($arrFooter);
                     foreach ($arrFooter as $v) {
                         $textArrFooter[] = $haveBrLinker . $v;
