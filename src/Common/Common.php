@@ -128,7 +128,6 @@ class Common
             }
 
             $textLen = count($textArr);
-
 //            $footerLen = 0;
             if ($footer != "") {
 //                $footerArr = array();
@@ -154,7 +153,7 @@ class Common
             }
 
             $canvasHeight = $canvasHeight + $lineHeight * $textLen;
-            if ($canvasHeight < 250) {
+            if ($canvasHeight < 450) {
                 $canvasHeight += 50;
             }
             $im = imagecreatetruecolor($canvasWidth, $canvasHeight); #定义画布
